@@ -1,7 +1,21 @@
+let sizeOfGrid = 32;
+
+function askforInput() {
+  let newSize = prompt("select the size");
+ if(newSize > 100) {
+  return;
+ } else {
+  sizeOfGrid = newSize;
+ }
+ return sizeOfGrid;
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
-  createDivs(200);
+  askforInput();
+  createDivs(sizeOfGrid);
 })
- let size;
+
 function createDivs(size) {
   let container = document.querySelector(".container");
  container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
@@ -16,8 +30,4 @@ function createDivs(size) {
   })  
   container.insertAdjacentElement("beforeend", div);
  }
-}
-function getVal() {
-  let val = document.querySelector('input').value;
-  console.log(val);
 }
