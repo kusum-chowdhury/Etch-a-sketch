@@ -1,18 +1,38 @@
 let sizeOfGrid = 32;
+let color = "black";
+let eraser = document.querySelector("#eraser");
+let rgbColor = document.querySelector("#rainbow-color");
+let div = document.querySelector('div');
+let black = document.querySelector('#black-color');
+let rgb = ['red', 'green', 'blue', 'yellow', 'pink', 'purple', 'royaleblue', 'lightblue', 'coral', 'black'];
 
-function askforInput() {
-  let newSize = prompt("select the size");
- if(newSize > 100) {
-  return;
- } else {
-  sizeOfGrid = newSize;
- }
- return sizeOfGrid;
+function selectRandomColor() {
+  let randomIndex = Math.floor(Math.random() * rgb.length)
+  return rgb[randomIndex];
 }
 
+rgbColor.addEventListener('click', () => {
+  rgbColor.classList.add("on");
+  black.classList.remove("on");
+})
+eraser.addEventListener("click", ()=> {
+  color = "white";
+  rgbColor.classList.remove("on")
+})
+black.addEventListener('click', ()=> {
+  color = "black";
+  rgbColor.classList.remove("on")
+})
 
+
+
+
+function askforInput() {
+  let size = prompt("enter num"); 
+  createDivs(size)
+
+}
 document.addEventListener("DOMContentLoaded", function() {
-  askforInput();
   createDivs(sizeOfGrid);
 })
 
@@ -26,7 +46,12 @@ function createDivs(size) {
   let div = document.createElement('div');
 
   div.addEventListener('mouseover', function(){
-    div.style.background = "black";
+   if(rgbColor.classList.contains("on")){
+
+     div.style.background = selectRandomColor();
+    } else {
+      div.style.background = color;
+    }
   })  
   container.insertAdjacentElement("beforeend", div);
  }
